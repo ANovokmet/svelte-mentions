@@ -281,7 +281,10 @@ var SMention = (function () {
 					matches = config.filter(config.options, result);
 					//matches.forEach(m => m.html = this.getHtml(m.name, result));
 					activeConfig = config;
+
 				}
+				
+				config.decode(inputValue, config.options);
 			});
 
 			if(matches.length > 0){
@@ -292,6 +295,7 @@ var SMention = (function () {
 			}
 
 			this.set({matches});
+			
 		},
 		moveSelectionDown() {
 			const {selected, matches} = this.get();
@@ -308,9 +312,7 @@ var SMention = (function () {
 			}
 		},
 		enterSelection(selected) {
-			const { activeConfig } = this.get();
-
-			const { inputValue } = this.get();
+			const { activeConfig, inputValue } = this.get();
 			const cursorPosition = this.refs.input.selectionStart;
 
 			const inputToCursor = inputValue.slice(0, cursorPosition);
@@ -333,7 +335,7 @@ var SMention = (function () {
 	const file = "src\\SMention.html";
 
 	function create_main_fragment(component, ctx) {
-		var textarea, text, div, ul, text_2, div_1, text_3, text_4_value = ctx.matches.length, text_4, text_5, text_7, text_8, current;
+		var textarea, text, div, ul, text_2, div_1, text_3, text_4_value = ctx.matches.length, text_4, text_5, current;
 
 		function keydown_handler(event) {
 			component.preventArrowKeys(event);
@@ -358,7 +360,7 @@ var SMention = (function () {
 		return {
 			c: function create() {
 				textarea = createElement("textarea");
-				text = createText("\n");
+				text = createText("\r\n");
 				div = createElement("div");
 				ul = createElement("ul");
 
@@ -366,25 +368,23 @@ var SMention = (function () {
 					each_blocks[i].c();
 				}
 
-				text_2 = createText("\n\t");
+				text_2 = createText("\r\n\t");
 				div_1 = createElement("div");
 				text_3 = createText("Showing ");
 				text_4 = createText(text_4_value);
 				text_5 = createText(" results.");
-				text_7 = createText("\n");
-				text_8 = createText(ctx.inputValue);
 				addListener(textarea, "keydown", keydown_handler);
 				addListener(textarea, "keyup", keyup_handler);
 				addListener(textarea, "click", click_handler);
-				textarea.className = "text-input svelte-1u2pa2v";
+				textarea.className = "text-input svelte-1uatgeu";
 				addLoc(textarea, file, 0, 0, 0);
-				ul.className = "items svelte-1u2pa2v";
-				addLoc(ul, file, 6, 1, 232);
-				div_1.className = "results svelte-1u2pa2v";
-				addLoc(div_1, file, 13, 1, 461);
-				div.className = "dropdown svelte-1u2pa2v";
+				ul.className = "items svelte-1uatgeu";
+				addLoc(ul, file, 6, 1, 237);
+				div_1.className = "results svelte-1uatgeu";
+				addLoc(div_1, file, 13, 1, 473);
+				div.className = "dropdown svelte-1uatgeu";
 				toggleClass(div, "hidden", !ctx.dropdownOpened);
-				addLoc(div, file, 5, 0, 177);
+				addLoc(div, file, 5, 0, 181);
 			},
 
 			m: function mount(target, anchor) {
@@ -403,8 +403,6 @@ var SMention = (function () {
 				append(div_1, text_3);
 				append(div_1, text_4);
 				append(div_1, text_5);
-				insert(target, text_7, anchor);
-				insert(target, text_8, anchor);
 				current = true;
 			},
 
@@ -437,10 +435,6 @@ var SMention = (function () {
 				if (changed.dropdownOpened) {
 					toggleClass(div, "hidden", !ctx.dropdownOpened);
 				}
-
-				if (changed.inputValue) {
-					setData(text_8, ctx.inputValue);
-				}
 			},
 
 			i: function intro(target, anchor) {
@@ -466,11 +460,6 @@ var SMention = (function () {
 				}
 
 				destroyEach(each_blocks, detach);
-
-				if (detach) {
-					detachNode(text_7);
-					detachNode(text_8);
-				}
 			}
 		};
 	}
@@ -485,9 +474,9 @@ var SMention = (function () {
 				li._svelte = { component, ctx };
 
 				addListener(li, "click", click_handler);
-				li.className = li_class_value = "" + ctx.activeConfig.itemClass + " svelte-1u2pa2v";
+				li.className = li_class_value = "" + ctx.activeConfig.itemClass + " svelte-1uatgeu";
 				toggleClass(li, "selected", ctx.selected===ctx.match);
-				addLoc(li, file, 8, 3, 281);
+				addLoc(li, file, 8, 3, 288);
 			},
 
 			m: function mount(target, anchor) {
@@ -502,7 +491,7 @@ var SMention = (function () {
 				}
 
 				li._svelte.ctx = ctx;
-				if ((changed.activeConfig) && li_class_value !== (li_class_value = "" + ctx.activeConfig.itemClass + " svelte-1u2pa2v")) {
+				if ((changed.activeConfig) && li_class_value !== (li_class_value = "" + ctx.activeConfig.itemClass + " svelte-1uatgeu")) {
 					li.className = li_class_value;
 				}
 
@@ -546,7 +535,6 @@ var SMention = (function () {
 		if (!('activeConfig' in this._state)) console.warn("<SMention> was created without expected data property 'activeConfig'");
 		if (!('selected' in this._state)) console.warn("<SMention> was created without expected data property 'selected'");
 		if (!('query' in this._state)) console.warn("<SMention> was created without expected data property 'query'");
-		if (!('inputValue' in this._state)) console.warn("<SMention> was created without expected data property 'inputValue'");
 		this._intro = !!options.intro;
 
 		this._fragment = create_main_fragment(this, this._state);

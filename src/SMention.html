@@ -1,4 +1,4 @@
-<textarea class="text-input" 
+<textarea class="text-input"
 	on:keydown="preventArrowKeys(event)"
 	on:keyup="updateValue(this.value, event)"
 	on:click="updateValue(this.value, event)"
@@ -15,7 +15,6 @@
 		Showing {matches.length} results.
 	</div>
 </div>
-{inputValue}
 
 <script>
 	const KEY_CODE = {
@@ -75,7 +74,10 @@
 						matches = config.filter(config.options, result);
 						//matches.forEach(m => m.html = this.getHtml(m.name, result));
 						activeConfig = config;
+
 					}
+					
+					config.decode(inputValue, config.options);
 				});
 
 				if(matches.length > 0){
@@ -86,6 +88,7 @@
 				}
 
 				this.set({matches});
+				
 			},
 			moveSelectionDown() {
 				const {selected, matches} = this.get();
@@ -102,9 +105,7 @@
 				}
 			},
 			enterSelection(selected) {
-				const { activeConfig } = this.get();
-
-				const { inputValue } = this.get();
+				const { activeConfig, inputValue } = this.get();
 				const cursorPosition = this.refs.input.selectionStart;
 
 				const inputToCursor = inputValue.slice(0, cursorPosition);

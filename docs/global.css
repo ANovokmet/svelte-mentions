@@ -1,3 +1,4 @@
+/* global styles */
 html, body {
 	position: relative;
 	width: 100%;
@@ -56,4 +57,77 @@ button:active {
 
 button:focus {
 	border-color: #666;
+}
+
+/* svelte-mentions styling */
+.item {
+    display: block;
+    height: 40px;
+}
+
+
+.image {
+    vertical-align: top;
+    margin: 4px;
+    float: left;
+    height: 32px;
+    width: 32px;
+    border-radius: 16px;
+}
+
+.label {
+    box-sizing: border-box;
+    height: 40px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+
+.item .title {
+    font-size: 12px;
+    line-height: 12px;
+    padding-top: 3px;
+    padding-bottom: 2px;
+}
+
+.subtitle {
+    font-size: 12px;
+    color: rgba(0,0,0,.55);
+    padding-bottom: 3px;
+    line-height: 12px;
+}
+
+.item:hover, .task:hover {
+    background-color: rgba(234,234,234,1);
+}
+
+.item.selected, .task.selected  {
+    background-color: rgba(222,236,249,1);
+}
+
+
+
+.task {
+    display: block;
+    /* height: 29px; */
+    padding: .2em .4em;
+    line-height: 1.5;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.icon {
+    color: rgb(242, 203, 29);
+    margin-right: 3px;
+}
+
+.id {
+    color: rgba(16,110,190,1);
+}
+
+.task .title {
+    color: rgba(0,0,0,.9);
 }

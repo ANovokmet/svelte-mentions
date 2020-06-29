@@ -1,10 +1,10 @@
-*Work in progress*
+# svelte-mentions
 
-Simple suggesting input that supports both mentions and tags. Made with Svelte.
+Simple text-area that supports mentions and tags. Made with Svelte.
 
 ## Configuration
 
-See *./public/main.js* for an example how svelte-mentions is initialized and configured...
+See `./public/main.js` for an example how svelte-mentions is initialized and configured...
 
 ```
 // configs, it is a list so multiple configurations (eg. mentions and tags) are supported
@@ -59,7 +59,6 @@ configs: [
     }
 ]
 ```
-
 
 ## Build from sources
 
